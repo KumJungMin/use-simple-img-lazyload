@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import useLazyLoad from "../hooks/useLazyLoad";
 
 interface LazyLoadProps {
@@ -7,6 +7,7 @@ interface LazyLoadProps {
   type?: "src" | "background";
   loadedClassName?: string;
   options?: IntersectionObserverInit;
+  children?: React.ReactNode;
 }
 
 const LazyLoad = (props: LazyLoadProps) => {
@@ -16,6 +17,8 @@ const LazyLoad = (props: LazyLoadProps) => {
     type = "src",
     loadedClassName = "loaded",
     options = {},
+    children,
+    ...rest
   } = props;
 
   const lazyLoadRef = useLazyLoad({ options, type, loadedClassName });
@@ -26,7 +29,15 @@ const LazyLoad = (props: LazyLoadProps) => {
   }, [elementRef, lazyLoadRef]);
 
   if (type === "src") {
-    return <img ref={elementRef} data-src={src} alt={alt} className="lazy" />;
+    return (
+      <img
+        ref={elementRef}
+        data-src={src}
+        alt={alt}
+        className="lazy"
+        {...rest}
+      />
+    );
   } else if (type === "background") {
     return (
       <div
@@ -35,8 +46,9 @@ const LazyLoad = (props: LazyLoadProps) => {
         aria-label={alt}
         role="img"
         className="lazy-background"
+        {...rest}
       >
-        {alt}
+        {children}
       </div>
     );
   } else {

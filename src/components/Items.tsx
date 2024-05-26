@@ -29,7 +29,9 @@ const ImageList = () => {
           alt={`Background Image ${index + 1}`}
           type="background"
           loadedClassName={"loaded"}
-        />
+        >
+          {`Background Image ${index + 1}`}
+        </LazyLoad>
       ))}
     </div>
   );
