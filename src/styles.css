@@ -4,6 +4,7 @@
 }
 
 .lazy {
+  display: inline-block; /* 이미지가 없을 때도, 너비 높이 공간을 차지하도록 */
   height: 300px;
   margin-bottom: 20px;
   background-color: #f0f0f0;
